@@ -5,7 +5,6 @@ import (
 )
 
 func Test_findk(t *testing.T) {
-
 	tests := []struct {
 		name string
 		args int
@@ -33,7 +32,6 @@ func Test_findk(t *testing.T) {
 }
 
 func Test_inputArg(t *testing.T) {
-
 	tests := []struct {
 		name string
 		args string

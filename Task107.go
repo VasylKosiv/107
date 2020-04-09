@@ -12,52 +12,54 @@ import (
 func main() {
 	filename := flag.String("f", "", "Take argument from file")
 	flag.Parse()
-	var k int = 0
 
-	if len(*filename) != 0 {
+	var k int
+
+	switch {
+	case len(*filename) != 0:
 		k = findk(inputArg(inputFile(filename)))
 		fmt.Println("k =", k)
 
-	} else if len(os.Args) > 1 {
+	case len(os.Args) > 1:
 		var mSt = os.Args[1]
 		k = findk(inputArg(mSt))
 		fmt.Println("k =", k)
-	} else {
 
+	default:
 		k = findk(inputArg(inputConsole()))
 		fmt.Println("k =", k)
-
 	}
 }
+
 func findk(x int) int {
 	var mulFour = 1
-	var k = 0
+
+	var k int
+
 	for i := 0; x > mulFour; i++ {
 		mulFour *= 4
 		k = i
 	}
-	return (k)
 
+	return k
 }
 
 func inputArg(x string) int {
-
 	var m, err = strconv.Atoi(x)
 	if err != nil {
 		panic(err)
-
 	}
 
 	return m
 }
 
 func inputFile(filename *string) string {
-
 	file, err := os.Open(*filename)
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
+
 	var fileData []string
 
 	scanner := bufio.NewScanner(file)
@@ -65,7 +67,9 @@ func inputFile(filename *string) string {
 	for scanner.Scan() {
 		fileData = append(fileData, scanner.Text())
 	}
-	var mFile = strings.Join(fileData, "")
+
+	mFile := strings.Join(fileData, "")
+
 	return mFile
 }
 
@@ -76,5 +80,4 @@ func inputConsole() string {
 	fmt.Fscan(os.Stdin, &consoleData)
 
 	return consoleData
-
 }
